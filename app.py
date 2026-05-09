@@ -63,7 +63,7 @@ total = st.number_input("Total Charges", 0.0, 10000.0, 1000.0)
 # Predict button
 if st.button("Predict Churn"):
 
-    url = "http://127.0.0.1:8000/predict"
+    url = "https://customer-churn-prediction-system-l7b5.onrender.com/predict"
 
     payload = {
         "gender": gender,
