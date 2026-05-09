@@ -87,15 +87,16 @@ if st.button("Predict Churn"):
         "TotalCharges": total
     }
 
-    response = requests.post(url, json=payload)
+    try:
+        response = requests.post(url, json=payload)
+        response.raise_for_status()
+        result = response.json()
 
-    result = response.json()
-
-    st.subheader("Prediction Result")
-
-    st.success(result["prediction"])
-
-    st.metric(
-        "Churn Probability",
-        f"{result['churn_probability'] * 100:.1f}%"
-    )
+        st.subheader("Prediction Result")
+        st.success(result["prediction"])
+        st.metric(
+            "Churn Probability",
+            f"{result['churn_probability'] * 100:.1f}%"
+        )
+    except requests.exceptions.RequestException as e:
+        st.error(f"Could not connect to the API. Ensure FastAPI is running at {url}")

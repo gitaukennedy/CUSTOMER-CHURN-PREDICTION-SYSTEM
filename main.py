@@ -42,7 +42,7 @@ def home():
 def predict(data: CustomerData):
 
     # Convert input to dataframe
-    input_dict = data.dict()
+    input_dict = data.model_dump()
 
     df = pd.DataFrame([input_dict])
 
